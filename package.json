@@ -15,6 +15,7 @@
   "author": "Edwin Contreras",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.9",
     "tailwindcss": "^3.4.16"
   }
 }
