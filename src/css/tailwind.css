@@ -3,13 +3,25 @@
 @tailwind utilities;
 
 .task-list {
-  @apply h-14 w-full px-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left bg-rose-200 rounded-lg dark:text-black;
+  @apply h-14 w-3/5 px-4 grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left bg-rose-400 rounded-lg dark:text-black;
 }
 
 .check {
-  @apply h-6 w-6 text-green-600 icon-[si-glyph--checked] dark:text-green-400;
+  @apply h-6 w-6 text-green-600 icon-[si-glyph--checked] cursor-pointer dark:text-green-700;
 }
 
 .delete {
-  @apply h-6 w-6 text-red-600 icon-[si-glyph--delete] dark:text-red-400;
+  @apply h-6 w-6 text-red-600 icon-[si-glyph--delete] cursor-pointer dark:text-red-700;
+}
+
+.task-text {
+  @apply flex gap-1 items-center text-base font-medium;
+}
+
+.pencil {
+  @apply h-4 w-4 text-gray-700 icon-[bxs--pencil] cursor-pointer;
+}
+
+.checked {
+  @apply opacity-50;
 }
