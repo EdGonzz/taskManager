@@ -3,6 +3,8 @@ const $toggleThemeBtn = document.getElementById('toggleThemeBtn');
 const $addTaskForm = document.getElementById('add-task-form');
 const $listContainer = document.getElementById('list-container');
 
+loadLocalStorage();
+
 $toggleThemeBtn.addEventListener('click', () => {
   $htmlElement.classList.toggle('dark');
 });
@@ -48,6 +50,8 @@ $addTaskForm.addEventListener('submit', (e) => {
   const $taskInput = document.getElementById('task-input');
 
   addTask($taskInput.value);
+  saveLocalStorage($taskInput.value);
+  $taskInput.value = '';
 });
 
 function editTask(element) {
@@ -80,3 +84,16 @@ $listContainer.addEventListener('click', (e) => {
     checkTask(e.target.parentElement);
   }
 });
+
+function saveLocalStorage(task) {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  tasks.push(task);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadLocalStorage() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  tasks.forEach((task) => {
+    addTask(task);
+  });
+}
