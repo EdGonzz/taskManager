@@ -18,12 +18,16 @@ if (currentTheme === 'dark') {
 }
 
 function addTask(value) {
-  if (value !== null && value !== '' && value !== undefined) {
+  const { text, checked } = value;
+  if (text) {
     const $taskList = document.createElement('li');
     $taskList.classList.add('task-list');
+    if (checked) {
+      $taskList.classList.add('checked');
+    }
 
     const $taskText = document.createElement('span');
-    $taskText.innerText = value;
+    $taskText.textContent = text;
     $taskText.setAttribute('id', 'task-text');
     $taskText.classList.add('task-text');
 
@@ -50,25 +54,25 @@ function createActionsBtn(parentList, childList) {
 
   parentList.insertAdjacentElement('afterbegin', $check);
   parentList.insertAdjacentElement('beforeend', $delete);
-  childList.insertAdjacentElement('beforeend', $edit);
+  childList.insertAdjacentElement('afterend', $edit);
 }
 
 $addTaskForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const $taskInput = document.getElementById('task-input');
 
-  addTask($taskInput.value);
+  addTask({ text: $taskInput.value, checked: false });
   saveLocalStorage($taskInput.value);
   $taskInput.value = '';
 });
 
 function editTask(element) {
-  if (element.parentElement.classList.contains('checked')) {
+  if (element.classList.contains('checked')) {
     element.setAttribute('disabled', true);
   } else {
-    let replace = prompt('Enter the new task name:', element.firstChild.textContent);
+    let replace = prompt('Enter the new task name:', element.firstChild.nextSibling.textContent);
     if (replace !== null && replace !== '' && replace !== undefined) {
-      element.firstChild.textContent = replace;
+      element.firstChild.nextSibling.textContent = replace;
       updateLocalStorage();
     }
   }
@@ -83,6 +87,7 @@ function deleteTask(element) {
 
 function checkTask(element) {
   element.classList.toggle('checked');
+  updateLocalStorage();
 }
 
 $listContainer.addEventListener('click', (e) => {
@@ -97,7 +102,7 @@ $listContainer.addEventListener('click', (e) => {
 
 function saveLocalStorage(task) {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push(task);
+  tasks.push({ text: task, checked: false });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -105,11 +110,13 @@ function loadLocalStorage() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.forEach((task) => {
     addTask(task);
+    console.log(task);
   });
 }
 
 function updateLocalStorage() {
-  const tasks = Array.from(document.querySelectorAll('.task-list')).map((task) => task.firstChild.nextSibling.textContent);
+  const tasks = Array.from(document.querySelectorAll('.task-list')).map((task) => ( { text: task.firstChild.nextSibling.textContent, checked: task.classList.contains('checked') }
+  ))
 
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
