@@ -5,9 +5,17 @@ const $listContainer = document.getElementById('list-container');
 
 loadLocalStorage();
 
+const currentTheme = localStorage.getItem('theme');
+
 $toggleThemeBtn.addEventListener('click', () => {
   $htmlElement.classList.toggle('dark');
+
+  localStorage.setItem('theme', $htmlElement.classList.contains('dark') ? 'dark' : 'light');
 });
+
+if (currentTheme === 'dark') {
+  $htmlElement.classList.add('dark');
+}
 
 function addTask(value) {
   if (value !== null && value !== '' && value !== undefined) {
@@ -61,6 +69,7 @@ function editTask(element) {
     let replace = prompt('Enter the new task name:', element.firstChild.textContent);
     if (replace !== null && replace !== '' && replace !== undefined) {
       element.firstChild.textContent = replace;
+      updateLocalStorage();
     }
   }
 }
@@ -68,6 +77,7 @@ function editTask(element) {
 function deleteTask(element) {
   if (confirm('Are you sure you want to delete this task?')) {
     element.remove();
+    updateLocalStorage();
   }
 }
 
@@ -96,4 +106,10 @@ function loadLocalStorage() {
   tasks.forEach((task) => {
     addTask(task);
   });
+}
+
+function updateLocalStorage() {
+  const tasks = Array.from(document.querySelectorAll('.task-list')).map((task) => task.firstChild.nextSibling.textContent);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
