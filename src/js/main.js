@@ -2,19 +2,29 @@ const $htmlElement = document.querySelector('html');
 const $toggleThemeBtn = document.getElementById('toggleThemeBtn');
 const $addTaskForm = document.getElementById('add-task-form');
 const $listContainer = document.getElementById('list-container');
+const $themeIcon = document.getElementById('theme-icon');
 
 loadLocalStorage();
 
 const currentTheme = localStorage.getItem('theme');
 
-$toggleThemeBtn.addEventListener('click', () => {
+function switchTheme() {
   $htmlElement.classList.toggle('dark');
+  $themeIcon.classList.toggle('theme-dark');
 
   localStorage.setItem('theme', $htmlElement.classList.contains('dark') ? 'dark' : 'light');
+}
+
+$toggleThemeBtn.addEventListener('click', () => {
+  if (!document.startViewTransition) {
+    switchTheme();
+  } 
+  document.startViewTransition(() => switchTheme());
 });
 
 if (currentTheme === 'dark') {
   $htmlElement.classList.add('dark');
+  $themeIcon.classList.add('theme-dark');
 }
 
 function addTask(value) {
