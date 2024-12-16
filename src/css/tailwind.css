@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 .task-list {
-  @apply min-h-14 w-full px-4 py-2 grid grid-cols-[auto_1fr_auto_auto] gap-4 items-center text-left bg-rose-400 rounded-lg dark:text-black md:max-w-2xl;
+  @apply min-h-14 w-full px-4 py-2 grid grid-cols-[auto_1fr_auto_auto] gap-4 items-center text-left bg-border-dark rounded-lg shadow-2xl md:max-w-2xl;
 }
 
 .task-text {
-  @apply w-52 break-words text-base font-medium md:w-[520px];
+  @apply w-52 break-words text-white text-base font-medium md:w-[520px];
 }
 
 .check {
-  @apply h-6 w-6 text-green-600 icon-[si-glyph--checked] cursor-pointer;
+  @apply h-6 w-6 text-green-500 icon-[si-glyph--checked] cursor-pointer;
 }
 
 .delete {
-  @apply h-6 w-6 text-red-600 icon-[si-glyph--delete] cursor-pointer;
+  @apply h-6 w-6 text-red-500 icon-[si-glyph--delete] cursor-pointer;
 }
 
 
 .pencil {
-  @apply h-6 w-6 object-cover text-gray-700 icon-[bxs--pencil] cursor-pointer;
+  @apply h-6 w-6 object-cover text-secondary icon-[bxs--pencil] cursor-pointer;
 }
 
 .checked {
