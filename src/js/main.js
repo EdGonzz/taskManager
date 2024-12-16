@@ -27,9 +27,9 @@ $toggleThemeBtn.addEventListener('click', () => {
 if (currentTheme === 'dark') {
   $htmlElement.classList.add('dark');
   $themeIcon.classList.add('theme-dark');
-  $themeText.textContent = 'Dark Mode';
-} else {
   $themeText.textContent = 'Light Mode';
+} else {
+  $themeText.textContent = 'Dark Mode';
 }
 
 function addTask(value) {
