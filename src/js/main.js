@@ -12,7 +12,7 @@ const currentTheme = localStorage.getItem('theme');
 function switchTheme() {
   $htmlElement.classList.toggle('dark');
   $themeIcon.classList.toggle('theme-dark');
-  $themeText.textContent = $htmlElement.classList.contains('dark') ? 'Dark Mode' : 'Light Mode';
+  $themeText.textContent = $htmlElement.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
 
   localStorage.setItem('theme', $htmlElement.classList.contains('dark') ? 'dark' : 'light');
 }
