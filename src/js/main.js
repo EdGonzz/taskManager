@@ -3,6 +3,7 @@ const $toggleThemeBtn = document.getElementById('toggleThemeBtn');
 const $addTaskForm = document.getElementById('add-task-form');
 const $listContainer = document.getElementById('list-container');
 const $themeIcon = document.getElementById('theme-icon');
+const $themeText = document.getElementById('theme-text');
 
 loadLocalStorage();
 
@@ -11,6 +12,7 @@ const currentTheme = localStorage.getItem('theme');
 function switchTheme() {
   $htmlElement.classList.toggle('dark');
   $themeIcon.classList.toggle('theme-dark');
+  $themeText.textContent = $htmlElement.classList.contains('dark') ? 'Dark Mode' : 'Light Mode';
 
   localStorage.setItem('theme', $htmlElement.classList.contains('dark') ? 'dark' : 'light');
 }
@@ -18,13 +20,16 @@ function switchTheme() {
 $toggleThemeBtn.addEventListener('click', () => {
   if (!document.startViewTransition) {
     switchTheme();
-  } 
+  }
   document.startViewTransition(() => switchTheme());
 });
 
 if (currentTheme === 'dark') {
   $htmlElement.classList.add('dark');
   $themeIcon.classList.add('theme-dark');
+  $themeText.textContent = 'Dark Mode';
+} else {
+  $themeText.textContent = 'Light Mode';
 }
 
 function addTask(value) {
@@ -125,7 +130,7 @@ function loadLocalStorage() {
 }
 
 function updateLocalStorage() {
-  const tasks = Array.from(document.querySelectorAll('.task-list')).map((task) => ( { text: task.firstChild.nextSibling.textContent, checked: task.classList.contains('checked') }
+  const tasks = Array.from(document.querySelectorAll('.task-list')).map((task) => ({ text: task.firstChild.nextSibling.textContent, checked: task.classList.contains('checked') }
   ))
 
   localStorage.setItem('tasks', JSON.stringify(tasks));
