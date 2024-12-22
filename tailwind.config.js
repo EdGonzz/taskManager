@@ -12,7 +12,10 @@ module.exports = {
         'primary': '#6c35de',
         'secondary': '#a364ff',
         'border-dark': '#4d425f'
-      }
+      },
+      screens: {
+        'sm': '370px',
+      },
     },
   },
   plugins: [
